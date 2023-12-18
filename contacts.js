@@ -16,7 +16,6 @@ const readContacts = async () => {
     }
   }
 };
-// readContacts().then(data => console.log(data,"<====data"))
 
 const getContactById = async (contactId) => {
   const contacts = await readContacts();
@@ -28,14 +27,8 @@ const getContactById = async (contactId) => {
   return contact;
 }
 
-// const nnnn = getContactById("qdggE76Jtbfd9eWJHrssH").then(data => console.log(data, "<=>"))
-// console.log(nnnn, "<======= getContactById")
-
 const removeContact = async (contactId) => {
   const contacts = await readContacts(); 
-
-  // const contactsss = contacts.filter(contact => contact.id !== contactId)
-
   const deletedContact = contacts.find(contact => contact.id === contactId)
   const index = contacts.findIndex(contact => contact.id === contactId)
   if(index === -1) return null;
@@ -43,14 +36,11 @@ const removeContact = async (contactId) => {
   await writeContacts(contacts);
   return deletedContact;
 }
-// removeContact("d9c96d03-e51d-465a-8971-3129d28dad88").then(data=> console.log(data, "<====== result"))
-
 
 const writeContacts = async (contacts) => {
   const data = JSON.stringify(contacts, null, 2);
   await fs.writeFile(contactsPath, data);
 };
-
 
 const addContact = async (name, email, phone) => {
   const contacts = await readContacts();
@@ -60,7 +50,5 @@ const addContact = async (name, email, phone) => {
   await writeContacts(contacts);
   return newContact;
 };
-// addContact("Max Dimekhin", "dimehinm@gmail.com", "+380(677)-755-688").then(data => console.log(data, "<======= newContact"))
-
 
 module.exports = { readContacts, addContact, getContactById, removeContact};
